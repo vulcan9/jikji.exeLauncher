@@ -1,0 +1,4 @@
+/Release
+!/Release/*.exe
+/Debug
+/.vs
