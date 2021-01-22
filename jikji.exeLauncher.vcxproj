@@ -22,8 +22,11 @@
     <ClCompile Include="src\main.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="readme.md" />
     <None Include="참고 자료\%40_runner.bat" />
-    <None Include="참고 자료\readme.md" />
+    <None Include="참고 자료\c.html" />
+    <None Include="참고 자료\c2.html" />
+    <None Include="참고 자료\기초.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

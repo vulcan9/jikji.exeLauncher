@@ -26,8 +26,15 @@
     <None Include="참고 자료\%40_runner.bat">
       <Filter>참고 자료</Filter>
     </None>
-    <None Include="참고 자료\readme.md">
+    <None Include="참고 자료\기초.md">
       <Filter>참고 자료</Filter>
     </None>
+    <None Include="참고 자료\c.html">
+      <Filter>참고 자료</Filter>
+    </None>
+    <None Include="참고 자료\c2.html">
+      <Filter>참고 자료</Filter>
+    </None>
+    <None Include="readme.md" />
   </ItemGroup>
 </Project>
