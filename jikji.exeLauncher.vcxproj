@@ -28,6 +28,15 @@
     <None Include="참고 자료\c2.html" />
     <None Include="참고 자료\기초.md" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="jikji.exeLauncher.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\pdi10\Desktop\favicon.ico" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
