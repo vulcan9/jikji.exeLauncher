@@ -48,7 +48,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\pdi10\Desktop\favicon.ico">
+    <Image Include="src\favicon.ico">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

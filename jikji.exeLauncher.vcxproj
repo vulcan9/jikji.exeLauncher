@@ -35,7 +35,7 @@
     <ResourceCompile Include="jikji.exeLauncher.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\pdi10\Desktop\favicon.ico" />
+    <Image Include="src\favicon.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

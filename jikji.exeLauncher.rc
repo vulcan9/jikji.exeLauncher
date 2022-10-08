@@ -52,7 +52,8 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "C:\\Users\\pdi10\\Desktop\\favicon.ico"
+// IDI_ICON1               ICON                    "C:\\Users\\pdi10\\Desktop\\favicon.ico"
+IDI_ICON1               ICON                        ".\\src\\favicon.ico"
 
 #endif    // 한국어(대한민국) resources
 /////////////////////////////////////////////////////////////////////////////
