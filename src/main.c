@@ -1,5 +1,5 @@
-#include <stdio.h> 
-#include <stdlib.h>    // malloc, free ÇÔ¼ö°¡ ¼±¾ğµÈ Çì´õ ÆÄÀÏ
+ï»¿#include <stdio.h> 
+#include <stdlib.h>    // malloc, free í•¨ìˆ˜ê°€ ì„ ì–¸ëœ í—¤ë” íŒŒì¼
 #include <string.h>
 #include <io.h> // _access
 #include <windows.h> // MessageBox
@@ -8,26 +8,26 @@
 int chdir(const char* dirname);
 char* getcwd(char* buffer, int maxlen);
 
-// ¿¡·¯ ¸Ş½ÃÁö Ã³¸®
+// ì—ëŸ¬ ë©”ì‹œì§€ ì²˜ë¦¬
 void ErrorHandling(char* message) {
     fputs(message, stderr);
     fputc('\n', stderr);
     exit(1);
 }
 
-// ¸Ş¼¼Áö ¹Ú½º
+// ë©”ì„¸ì§€ ë°•ìŠ¤
 void alert(char* message) {
     printf("%s\n", message);
 
     WCHAR wcs[1024] = { L'\0' };
     //MultiByteToWideChar(CP_ACP, 0, str, strlen(str) + 1, tstr1, strlen(str) + 1);
     MultiByteToWideChar(CP_ACP, 0, message, strlen(message) + 1, wcs, strlen(message) + 1);
-    MessageBox(NULL, wcs, L"¾Ë¸² (launcher)", MB_OK);
+    MessageBox(NULL, wcs, L"ì•Œë¦¼ (launcher)", MB_OK);
 }
 
 
 //----------------------------
-// ½ÇÇà ÆÄÀÏ À§Ä¡ Ã£±â
+// ì‹¤í–‰ íŒŒì¼ ìœ„ì¹˜ ì°¾ê¸°
 //----------------------------
 
 char* findFile(char* folderPath, const char* FILE_EXE_PATH) {
@@ -39,9 +39,9 @@ char* findFile(char* folderPath, const char* FILE_EXE_PATH) {
 
     do {
         strcpy_s(currentFolder, sizeof(currentFolder) / sizeof(char), folderPath);
-        printf("ÆÄÀÏ °Ë»ö: %s\n", currentFolder);
+        printf("íŒŒì¼ ê²€ìƒ‰: %s\n", currentFolder);
 
-        // ÃÊ±âÈ­
+        // ì´ˆê¸°í™”
         strcpy_s(fullPath, sizeof(fullPath) / sizeof(char), "");
 
         strcat_s(fullPath, sizeof(fullPath) / sizeof(char), currentFolder);
@@ -49,24 +49,24 @@ char* findFile(char* folderPath, const char* FILE_EXE_PATH) {
         strcat_s(fullPath, sizeof(fullPath) / sizeof(char), FILE_EXE_PATH);
         //printf("full Path : %s\n", fullPath);
 
-        // °æ·Î¿¡ ÆÄÀÏÀÌ ÀÖ´ÂÁö °Ë»ç (Á¤»ó ½Ã 0, ¿¡·¯ ½Ã -1)
+        // ê²½ë¡œì— íŒŒì¼ì´ ìˆëŠ”ì§€ ê²€ì‚¬ (ì •ìƒ ì‹œ 0, ì—ëŸ¬ ì‹œ -1)
         int exist = _access(fullPath, 0);
         if (exist != -1) {
-            printf("ÆÄÀÏÀÌ Á¸Àç : %s\n", fullPath);
+            printf("íŒŒì¼ì´ ì¡´ì¬ : %s\n", fullPath);
             isFinded = 0;
         }
         else {
-            //printf("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!\n\n");
+            //printf("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!\n\n");
 
-            // »óÀ§ Æú´õ °Ë»ö
+            // ìƒìœ„ í´ë” ê²€ìƒ‰
             chdir("..");
             getcwd(folderPath, BUFSIZ);
 
-            // ÀÌÀü °æ·Î¿Í °°Àº °æ¿ì (rootÀÓ)
+            // ì´ì „ ê²½ë¡œì™€ ê°™ì€ ê²½ìš° (rootì„)
             int isRoot = strcmp(folderPath, currentFolder);
             //printf("isRoot : %d\n", isRoot);
 
-            // Á¾·á
+            // ì¢…ë£Œ
             if (isRoot == 0) return "";
         }
         //printf("---------------------------------------\n\n");
@@ -81,20 +81,20 @@ char* findFile(char* folderPath, const char* FILE_EXE_PATH) {
 }
 
 //----------------------------
-// ½ÇÇà ÆÄÀÏ ½ÇÇà
+// ì‹¤í–‰ íŒŒì¼ ì‹¤í–‰
 //----------------------------
 
 void execute(char* fullPath, char* cwd, char* filename) {
 
     if (strcmp(fullPath, "") == 0) {
-        alert("½ÇÇà ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+        alert("ì‹¤í–‰ íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         return;
     }
 
     /*
-    // ¸Ş¼¼Áö ¹Ú½º
-    char msg[1024] = { "½ÇÇà ÆÄÀÏÀ» ½ÇÇà ÇÒ¼ö ÀÖ½À´Ï´Ù." };
-    strcat_s(msg, sizeof(msg) / sizeof(char), "\n½ÇÇà ÆÄÀÏ °æ·Î : ");
+    // ë©”ì„¸ì§€ ë°•ìŠ¤
+    char msg[1024] = { "ì‹¤í–‰ íŒŒì¼ì„ ì‹¤í–‰ í• ìˆ˜ ìˆìŠµë‹ˆë‹¤." };
+    strcat_s(msg, sizeof(msg) / sizeof(char), "\nì‹¤í–‰ íŒŒì¼ ê²½ë¡œ : ");
     strcat_s(msg, sizeof(msg) / sizeof(char), fullPath);
     alert(msg);
     */
@@ -108,7 +108,7 @@ void execute(char* fullPath, char* cwd, char* filename) {
 
     TCHAR commandline[1024] = { 0, };
     MultiByteToWideChar(CP_ACP, 0, cmd, strlen(cmd) + 1, commandline, strlen(cmd) + 1);
-    //TCHAR commandline[] = TEXT("D:\\Project\\ÇÑ±Û Æú´õ¸í Å×½ºÆ®\\@_run\\@_runner.exe");
+    //TCHAR commandline[] = TEXT("D:\\Project\\í•œê¸€ í´ë”ëª… í…ŒìŠ¤íŠ¸\\@_run\\@_runner.exe");
 
     /*
     WCHAR fullPath_w[1024] = { L'\0' };
@@ -136,7 +136,7 @@ void execute(char* fullPath, char* cwd, char* filename) {
     ShellExecute(NULL, L"open", commandline, param, NULL, SW_HIDE);
 
     //---------------------------
-    // »ç¿ë ¾ÈÇÔ
+    // ì‚¬ìš© ì•ˆí•¨
     //---------------------------
     // CreateProcess : https://robodream.tistory.com/188
 
@@ -159,16 +159,16 @@ void execute(char* fullPath, char* cwd, char* filename) {
     PROCESS_INFORMATION pi;
     STARTUPINFO si = { 0 };
     si.cb = sizeof(si);
-    // cmd Ã¢À» ¼û±è
+    // cmd ì°½ì„ ìˆ¨ê¹€
     //si.wShowWindow = SW_HIDE;
 
     int success = CreateProcess(NULL, commandline, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
     if (success == 0) {
-        alert("´ë»ó ÆÄÀÏÀ» ½ÇÇàÇÏÁö ¸øÇÏ¿´½À´Ï´Ù.");
+        alert("ëŒ€ìƒ íŒŒì¼ì„ ì‹¤í–‰í•˜ì§€ ëª»í•˜ì˜€ìŠµë‹ˆë‹¤.");
         return;
     }
 
-    // child process Á¾·á½Ã±îÁö ±â´Ù¸²
+    // child process ì¢…ë£Œì‹œê¹Œì§€ ê¸°ë‹¤ë¦¼
     WaitForSingleObject(pi.hProcess, INFINITE);
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
@@ -181,7 +181,7 @@ char* fnGetFileName() {
     TCHAR FullPath[260]; 
     TCHAR FileName[260];
     
-    //Àı´ë °æ·Î¸¦ ¾ò¾î¿É´Ï´Ù. 
+    //ì ˆëŒ€ ê²½ë¡œë¥¼ ì–»ì–´ì˜µë‹ˆë‹¤. 
     GetModuleFileName(NULL, FullPath, 260);
     char fullPath[1024] = { 0, };
 
@@ -190,7 +190,7 @@ char* fnGetFileName() {
     printf("# FullPath : %ls %d %d\n", FullPath, _countof(FullPath), wcslen(FullPath));
     printf("# fullPath : %s %d %d\n", fullPath, _countof(fullPath), strlen(fullPath));
 
-    //ÆÄÀÏ¸íÀ» ¾ò¾î¿É´Ï´Ù.(È®ÀåÀÚ Æ÷ÇÔ ex - filename.exe) 
+    //íŒŒì¼ëª…ì„ ì–»ì–´ì˜µë‹ˆë‹¤.(í™•ì¥ì í¬í•¨ ex - filename.exe) 
     GetFileTitle(FullPath, FileName, 260);
     char filename[_MAX_FNAME] = { 0, };
     WideCharToMultiByte(CP_ACP, 0, FileName, wcslen(FileName) + 1, filename, wcslen(FileName) * 2 + 1, NULL, NULL);
@@ -199,7 +199,7 @@ char* fnGetFileName() {
     
     //char* s1 = malloc(sizeof(char) * 30);
 
-    //È®ÀåÀÚ¸¦ Á¦¿ÜÇÑ ÆÄÀÏ¸í ¾ò±âÀÔ´Ï´Ù.
+    //í™•ì¥ìë¥¼ ì œì™¸í•œ íŒŒì¼ëª… ì–»ê¸°ì…ë‹ˆë‹¤.
     static char baseName[_MAX_FNAME] = { 0, };
     _splitpath_s(fullPath, NULL, 0, NULL, 0, baseName, strlen(fullPath), NULL, 0);
     //printf("# baseName : %s\n", baseName);
@@ -212,7 +212,7 @@ char* fnGetFileName() {
     return baseName;
 
     /*
-    // strtok_s ½ÇÇàÇÏ¸é ¿øº» ¹®ÀÚ¿­ÀÌ º¯°æµÇ¹Ç·Î º¹»çÇØ¼­ »ç¿ë
+    // strtok_s ì‹¤í–‰í•˜ë©´ ì›ë³¸ ë¬¸ìì—´ì´ ë³€ê²½ë˜ë¯€ë¡œ ë³µì‚¬í•´ì„œ ì‚¬ìš©
     char copyFilename[_MAX_FNAME];
     strcpy_s(copyFilename, sizeof(copyFilename) / sizeof(char), filename);
 
@@ -240,36 +240,36 @@ char* fnGetFileName() {
 // Main
 ////////////////////////////////////////////////////////////////////////
 
-// ÄÜ¼Ö ÇÁ·Î±×·¥
+// ì½˜ì†” í”„ë¡œê·¸ë¨
 int main(void) {
-    // Ã¢ Å©±â
+    // ì°½ í¬ê¸°
     //system("mode con cols=80 lines=25");
 
 
-    // ·ÎÄÃ ÆÄÀÏ¿¡¼­ °æ·Î ÀĞ±â
-    //const char* FILE_EXE_PATH = "\\ÇÑ±Û Æú´õ¸í Å×½ºÆ®\\@_asset\\runner.exe";
+    // ë¡œì»¬ íŒŒì¼ì—ì„œ ê²½ë¡œ ì½ê¸°
+    //const char* FILE_EXE_PATH = "\\í•œê¸€ í´ë”ëª… í…ŒìŠ¤íŠ¸\\@_asset\\runner.exe";
     const char* FILE_EXE_PATH = "\\@_asset\\runner.bat";
 
-    // Å½»öÀ» ½ÃÀÛÇÒ Æú´õ
+    // íƒìƒ‰ì„ ì‹œì‘í•  í´ë”
     char cwd[BUFSIZ] = { 0, };
     getcwd(cwd, BUFSIZ);
-    printf("# ÇöÀç À§Ä¡ : %s\n\n", cwd);
+    printf("# í˜„ì¬ ìœ„ì¹˜ : %s\n\n", cwd);
 
-    // ½ÇÇà ÆÄÀÏ À§Ä¡ Ã£±â
+    // ì‹¤í–‰ íŒŒì¼ ìœ„ì¹˜ ì°¾ê¸°
     char* fullPath = findFile(cwd, FILE_EXE_PATH);
 
-    // ÀÚ½ÅÀÇ ÆÄÀÏ ÀÌ¸§À» ³Ñ°ÜÁØ´Ù
+    // ìì‹ ì˜ íŒŒì¼ ì´ë¦„ì„ ë„˜ê²¨ì¤€ë‹¤
     char* filename = fnGetFileName();
 
-    // ½ÇÇà ÆÄÀÏ ½ÇÇà
+    // ì‹¤í–‰ íŒŒì¼ ì‹¤í–‰
     execute(fullPath, cwd, filename);
 
     //free(filename);
     return 0;
 }
 
-// WIN ÇÁ·Î±×·¥ (Ã¢ ¼û±â±â)
-// ÇÁ·Î±×·¥ ¼Ó¼º > Linker > System > Subsystem : Console·Î µÇ¾î ÀÖÀ¸¸é Window·Î ¹Ù²ãÁà¾ßÇÔ
+// WIN í”„ë¡œê·¸ë¨ (ì°½ ìˆ¨ê¸°ê¸°)
+// í”„ë¡œê·¸ë¨ ì†ì„± > Linker > System > Subsystem : Consoleë¡œ ë˜ì–´ ìˆìœ¼ë©´ Windowë¡œ ë°”ê¿”ì¤˜ì•¼í•¨
 
 //int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 //int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, TCHAR* lpszCmdParam, int nCmdShow) {
